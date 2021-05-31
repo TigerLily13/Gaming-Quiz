@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GameQuiz.iml" filepath="$PROJECT_DIR$/.idea/GameQuiz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Temperature Convertor/.idea/Temperature Convertor.iml" filepath="$PROJECT_DIR$/../Temperature Convertor/.idea/Temperature Convertor.iml" />
     </modules>
   </component>
 </project>
