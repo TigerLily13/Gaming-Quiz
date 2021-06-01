@@ -1,4 +1,5 @@
 from tkinter import *
+from functools import partial
 import random
 
 
@@ -8,8 +9,9 @@ class Quiz:
         # Formatting Variables:
         background_colour = "#A4C2F4"
         button_colour = "#CFE2F3"
-        answer = ()
+        answer = StringVar()
         answers = ["answer 1", "answer 2", "answer 3"]
+        submit_state = "Start"
 
         # Quiz Main GUI
         self.quiz_frame = Frame(width=500, height=600, bg=background_colour, pady=10)
@@ -28,13 +30,13 @@ class Quiz:
         self.question_label.grid(row=1)
 
         # Answer Box
-        self.answer_box = OptionMenu(self.quiz_frame, answer, "Pick an Answer", *answers)
+        self.answer_box = OptionMenu(self.quiz_frame, answer, *answers)
         self.answer_box.grid(row=2, pady=5, padx=10)
 
         self.answer_box.config(width=20)
 
         # Submit Button
-        self.submit_button = Button(self.quiz_frame, text="Submit", font=("Arial", "14"), bg=button_colour)
+        self.submit_button = Button(self.quiz_frame, text=submit_state, font=("Arial", "14"), bg=button_colour)
         self.submit_button.grid(row=3)
 
         # Frame for the help and answer history buttons
@@ -43,7 +45,7 @@ class Quiz:
 
         # Help Button
         self.help_button = Button(self.help_history_frame,
-                                  text="Help",
+                                  text="Help", command=self.help,
                                   font=("Arial", "14"), bg=button_colour)
         self.help_button.grid(row=0)
 
@@ -52,6 +54,55 @@ class Quiz:
                                      text="History",
                                      font=("Arial", "14"), bg=button_colour)
         self.history_button.grid(row=0, column=1)
+
+    def help(self):
+        get_help = Help(self)
+        get_help.help_text.configure(text="In order to start the quiz, click the start button. Then select the"
+                                          " answer you think is correct and click submit.\n\nThe Answer History"
+                                          " page shows your results for the session.\n\nYou can export your results"
+                                          " to a .txt file if desired.")
+
+
+class Help:
+    def __init__(self, partner):
+
+        # Formatting Variables
+        background_colour = "#A4C2F4"
+        button_colour = "#CFE2F3"
+
+        # Disable Help Button
+        partner.help_button.config(state=DISABLED)
+
+        # Set up child window (help box)
+        self.help_box = Toplevel()
+
+        # Release Help Button if cross is used
+        self.help_box.protocol('WM_DELETE_WINDOW', partial(self.close_help, partner))
+
+        # Set up GUI Frame
+        self.help_frame = Frame(self.help_box, bg=background_colour, width=300)
+        self.help_frame.grid()
+
+        # Help Heading
+        self.help_heading = Label(self.help_frame, text="Help | Instructions",
+                                  font=("Arial", "10", "bold"), bg=background_colour)
+        self.help_heading.grid(row=0)
+
+        # Help Text
+        self.help_text = Label(self.help_frame, text="",
+                               justify=LEFT, width=40, bg=background_colour, wrap=250)
+        self.help_text.grid(row=1)
+
+        # Dismiss button
+        self.dismiss_button = Button(self.help_frame, text="Dismiss", width=10, bg=button_colour,
+                                     command=partial(self.close_help, partner))
+        self.dismiss_button.grid(row=2, pady=10)
+
+    def close_help(self, partner):
+
+        # Put Help button back to normal
+        partner.help_button.config(state=NORMAL)
+        self.help_box.destroy()
 
 
 # main routine
