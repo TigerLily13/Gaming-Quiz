@@ -10,8 +10,11 @@ class Quiz:
         background_colour = "#A4C2F4"
         button_colour = "#CFE2F3"
         answer = StringVar()
-        answers = ["answer 1", "answer 2", "answer 3"]
-        submit_state = "Start"
+        answers = ["A Car Racing Game", "A Popular Game", "A Game made by a Small Company",
+                   "A Game made by a Large Company"]
+        submit_state = "Submit"
+        question_list = ["What is an Indy Game?", "Hollow Knight was made by what team?",
+                         "When was Undertale released?"]
 
         # Quiz Main GUI
         self.quiz_frame = Frame(width=500, height=600, bg=background_colour, pady=10)
@@ -25,7 +28,7 @@ class Quiz:
         self.quiz_label.grid(row=0)
 
         # Question Text
-        self.question_label = Label(self.quiz_frame, text="[Insert Question]",
+        self.question_label = Label(self.quiz_frame, text=question_list[0],
                                     font=("Arial", "12"), bg=background_colour, padx=10, pady=10)
         self.question_label.grid(row=1)
 
@@ -33,10 +36,11 @@ class Quiz:
         self.answer_box = OptionMenu(self.quiz_frame, answer, *answers)
         self.answer_box.grid(row=2, pady=5, padx=10)
 
-        self.answer_box.config(width=20)
+        self.answer_box.config(width=30)
 
         # Submit Button
-        self.submit_button = Button(self.quiz_frame, text=submit_state, font=("Arial", "14"), bg=button_colour)
+        self.submit_button = Button(self.quiz_frame, text=submit_state, font=("Arial", "14"), bg=button_colour,
+                                    command=partial(self.next, answer, answers))
         self.submit_button.grid(row=3)
 
         # Frame for the help and answer history buttons
@@ -54,6 +58,15 @@ class Quiz:
                                      text="History",
                                      font=("Arial", "14"), bg=button_colour)
         self.history_button.grid(row=0, column=1)
+
+    def next(self, answer, answers):
+
+        answer = answer.get()
+
+        if answer == answers[2]:
+            print("Correct!")
+        else:
+            print("Sorry, That's Wrong.")
 
     def help(self):
         get_help = Help(self)
