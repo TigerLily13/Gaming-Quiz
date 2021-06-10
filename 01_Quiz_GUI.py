@@ -10,9 +10,10 @@ class Quiz:
         background_colour = "#A4C2F4"
         button_colour = "#CFE2F3"
         answer = StringVar()
-        answers = ["A Car Racing Game", "A Popular Game", "A Game made by a Small Company",
-                   "A Game made by a Large Company"]
-        submit_state = "Submit"
+        answers_1 = ["A Car Racing Game", "A Popular Game", "A Game made by a Small Company",
+                     "A Game made by a Large Company"]
+        answers_2 = ["Team Cherry", "Team Plum", "Team Apricot", "Team Nectarine"]
+        answers_3 = ["2014", "2015", "2016", "2017"]
         question_list = ["What is an Indy Game?", "Hollow Knight was made by what team?",
                          "When was Undertale released?"]
 
@@ -32,15 +33,26 @@ class Quiz:
                                     font=("Arial", "12"), bg=background_colour, padx=10, pady=10)
         self.question_label.grid(row=1)
 
-        # Answer Box
-        self.answer_box = OptionMenu(self.quiz_frame, answer, *answers)
-        self.answer_box.grid(row=2, pady=5, padx=10)
+        # Answer Boxes (Starts from last question so the top box is the first question)
+        self.answer_3_box = OptionMenu(self.quiz_frame, answer, *answers_3)
+        self.answer_3_box.grid(row=2, pady=5, padx=10)
 
-        self.answer_box.config(width=30)
+        self.answer_3_box.config(width=30)
+
+        self.answer_2_box = OptionMenu(self.quiz_frame, answer, *answers_2)
+        self.answer_2_box.grid(row=2, pady=5, padx=10)
+
+        self.answer_2_box.config(width=30)
+
+        self.answer_1_box = OptionMenu(self.quiz_frame, answer, *answers_1)
+        self.answer_1_box.grid(row=2, pady=5, padx=10)
+
+        self.answer_1_box.config(width=30)
 
         # Submit Button
-        self.submit_button = Button(self.quiz_frame, text=submit_state, font=("Arial", "14"), bg=button_colour,
-                                    command=partial(self.next, answer, answers))
+        self.submit_button = Button(self.quiz_frame, text="Submit", font=("Arial", "14"), bg=button_colour,
+                                    command=partial(self.next, answer, question_list, answers_1, answers_2,
+                                                    answers_3))
         self.submit_button.grid(row=3)
 
         # Frame for the help and answer history buttons
@@ -59,12 +71,26 @@ class Quiz:
                                      font=("Arial", "14"), bg=button_colour)
         self.history_button.grid(row=0, column=1)
 
-    def next(self, answer, answers):
+    def next(self, answer, question_list, answers_1, answers_2, answers_3):
 
         answer = answer.get()
 
-        if answer == answers[2]:
+        if answer == answers_1[2]:
             print("Correct!")
+            self.question_label.config(text=question_list[1])
+            self.answer_1_box.grid_forget()
+        elif answer == answers_2[0]:
+            print("Correct!")
+            self.question_label.config(text=question_list[2])
+            self.answer_2_box.grid_forget()
+        elif answer == answers_3[1]:
+            print("Correct!")
+            print("")
+            self.question_label.config(text="Thanks for playing!!")
+            self.answer_3_box.config(state=DISABLED)
+            self.submit_button.config(state=DISABLED)
+        elif answer == "":
+            print("Please Select an Answer.")
         else:
             print("Sorry, That's Wrong.")
 
