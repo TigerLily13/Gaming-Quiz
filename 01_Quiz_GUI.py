@@ -2,6 +2,7 @@ from tkinter import *
 from functools import partial
 import random
 
+user_answers = []
 
 class Quiz:
     def __init__(self):
@@ -14,7 +15,7 @@ class Quiz:
                      "A Game made by a Large Company"]
         answers_2 = ["Team Cherry", "Team Plum", "Team Apricot", "Team Nectarine"]
         answers_3 = ["2014", "2015", "2016", "2017"]
-        answers_4 = ["five", "six", "eight", "nine"]
+        answers_4 = ["Five", "Six", "Eight", "Nine"]
         answers_5 = ["Chaotic Goose", "Goose Simulator", "Untitled Goose Game", "That Goose Game"]
         question_list = ["What is an Indie Game?", "Hollow Knight was made by what team?",
                          "When was Undertale released?", "How many games are there in the FNAF main series?",
@@ -99,15 +100,18 @@ class Quiz:
                 print("Correct!")
                 self.question_label.config(text=question_list[1])
                 self.answer_1_box.destroy()
+                user_answers.append(answer)
             else:
                 print('Sorry, the answer is "A Game made by a Small Company".')
                 self.question_label.config(text=question_list[1])
                 self.answer_1_box.destroy()
+                user_answers.append(answer)
         elif self.answer_2_box.winfo_exists():
             if answer == answers_2[0]:
                 print("Correct!")
                 self.question_label.config(text=question_list[2])
                 self.answer_2_box.destroy()
+                user_answers.append(answer)
             # Makes sure a new answer has been selected
             elif answer in answers_1:
                 print("Please Select a New Answer")
@@ -115,11 +119,13 @@ class Quiz:
                 print('Sorry, the answer is "Team Cherry".')
                 self.question_label.config(text=question_list[2])
                 self.answer_2_box.destroy()
+                user_answers.append(answer)
         elif self.answer_3_box.winfo_exists():
             if answer == answers_3[1]:
                 print("Correct!")
                 self.question_label.config(text=question_list[3])
                 self.answer_3_box.destroy()
+                user_answers.append(answer)
             # Makes sure a new answer has been selected
             elif answer in answers_2:
                 print("Please Select a New Answer")
@@ -127,12 +133,14 @@ class Quiz:
                 print('Sorry, the answer is "2015".')
                 self.question_label.config(text=question_list[3])
                 self.answer_3_box.destroy()
+                user_answers.append(answer)
         elif self.answer_4_box.winfo_exists():
             if answer == answers_4[3]:
                 print("Correct!")
                 self.question_label.config(text=question_list[4])
                 self.answer_4_box.destroy()
                 self.answer_5_box.config(width=35)
+                user_answers.append(answer)
             # Makes sure a new answer has been selected
             elif answer in answers_3:
                 print("Please Select a New Answer")
@@ -141,11 +149,15 @@ class Quiz:
                 self.question_label.config(text=question_list[4])
                 self.answer_4_box.destroy()
                 self.answer_5_box.config(width=35)
+                user_answers.append(answer)
         elif self.answer_5_box.winfo_exists():
             if answer == answers_5[2]:
                 print("Correct!")
                 print("")
-                self.question_label.config(text="Thanks for playing!!!")
+                user_answers.append(answer)
+                self.question_label.config(text="Thanks for playing!!!"
+                                                "\n\n You answered: \n\n {}".format(user_answers),
+                                           font=("Arial", "16", "italic"))
                 self.answer_5_box.destroy()
                 self.submit_button.destroy()
             elif answer in answers_4:
@@ -153,9 +165,13 @@ class Quiz:
             else:
                 print('Sorry, the answer is "Untitled Goose Game".')
                 print("")
+                user_answers.append(answer)
                 self.question_label.config(text="Thanks for playing!!!")
                 self.answer_5_box.destroy()
                 self.submit_button.destroy()
+                self.question_label.config(text="Thanks for playing!!!"
+                                                "\n\n You answered: \n\n {}".format(user_answers),
+                                           font=("Arial", "16", "italic"))
 
     def help(self):
         get_help = Help(self)
