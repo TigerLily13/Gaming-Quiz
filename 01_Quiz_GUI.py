@@ -104,14 +104,15 @@ class Quiz:
         # Makes sure the answer box exists, destroys the box after to stop the user spamming submit
         elif self.answer_1_box.winfo_exists():
             if answer == answers_1[2]:
-                self.answer_label.config(text="Correct!")
+                self.answer_label.config(text="Correct!", bg="#93C47D")
                 self.question_label.config(text=question_list[1])
                 self.answer_1_box.destroy()
                 user_answers.append(answer)
                 correct_incorrect.append("correct")
                 self.history_button.config(state=NORMAL)
             else:
-                self.answer_label.config(text='Sorry, the answer is "A Game made by a Small Company".')
+                self.answer_label.config(text='Sorry, the answer is "A Game made by a Small Company".',
+                                         bg="#ffafaf")
                 self.question_label.config(text=question_list[1])
                 self.answer_1_box.destroy()
                 user_answers.append(answer)
@@ -119,7 +120,7 @@ class Quiz:
                 self.history_button.config(state=NORMAL)
         elif self.answer_2_box.winfo_exists():
             if answer == answers_2[0]:
-                self.answer_label.config(text="Correct!")
+                self.answer_label.config(text="Correct!", bg="#93C47D")
                 self.question_label.config(text=question_list[2])
                 self.answer_2_box.destroy()
                 user_answers.append(answer)
@@ -128,14 +129,15 @@ class Quiz:
             elif answer in answers_1:
                 self.answer_label.config(text="Please Select a New Answer.")
             else:
-                self.answer_label.config(text='Sorry, the answer is "Team Cherry".')
+                self.answer_label.config(text='Sorry, the answer is "Team Cherry".',
+                                         bg="#ffafaf")
                 self.question_label.config(text=question_list[2])
                 self.answer_2_box.destroy()
                 user_answers.append(answer)
                 correct_incorrect.append("incorrect")
         elif self.answer_3_box.winfo_exists():
             if answer == answers_3[1]:
-                self.answer_label.config(text="Correct!")
+                self.answer_label.config(text="Correct!", bg="#93C47D")
                 self.question_label.config(text=question_list[3])
                 self.answer_3_box.destroy()
                 user_answers.append(answer)
@@ -144,14 +146,15 @@ class Quiz:
             elif answer in answers_2:
                 self.answer_label.config(text="Please Select a New Answer.")
             else:
-                self.answer_label.config(text='Sorry, the answer is "2015".')
+                self.answer_label.config(text='Sorry, the answer is "2015".',
+                                         bg="#ffafaf")
                 self.question_label.config(text=question_list[3])
                 self.answer_3_box.destroy()
                 user_answers.append(answer)
                 correct_incorrect.append("incorrect")
         elif self.answer_4_box.winfo_exists():
             if answer == answers_4[3]:
-                self.answer_label.config(text="Correct!")
+                self.answer_label.config(text="Correct!", bg="#93C47D")
                 self.question_label.config(text=question_list[4])
                 self.answer_4_box.destroy()
                 user_answers.append(answer)
@@ -161,7 +164,8 @@ class Quiz:
             elif answer in answers_3:
                 self.answer_label.config(text="Please Select a New Answer.")
             else:
-                self.answer_label.config(text='Sorry, the answer is "Nine".')
+                self.answer_label.config(text='Sorry, the answer is "Nine".',
+                                         bg="#ffafaf")
                 self.question_label.config(text=question_list[4])
                 self.answer_4_box.destroy()
                 user_answers.append(answer)
@@ -169,7 +173,7 @@ class Quiz:
                 self.answer_5_box.config(width=35)
         elif self.answer_5_box.winfo_exists():
             if answer == answers_5[2]:
-                self.answer_label.config(text="Correct!")
+                self.answer_label.config(text="Correct!", bg="#93C47D")
                 user_answers.append(answer)
                 correct_incorrect.append("correct")
                 self.question_label.config(text="Thanks for playing!!!",
@@ -179,12 +183,13 @@ class Quiz:
             elif answer in answers_4:
                 self.answer_label.config(text="Please Select a New Answer.")
             else:
-                self.answer_label.config(text='Sorry, the answer is "Untitled Goose Game".')
+                self.answer_label.config(text='Sorry, the answer is "Untitled Goose Game".',
+                                         bg="#ffafaf")
                 user_answers.append(answer)
                 correct_incorrect.append("incorrect")
                 self.question_label.config(text="Thanks for playing!!!",
                                            font=("Arial", "16", "italic"))
-                self.answer_5_box.destroy()
+                self.answer_5_box.config(state=DISABLED)
                 self.submit_button.destroy()
 
     def help(self):
